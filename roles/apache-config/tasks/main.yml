@@ -1,0 +1,12 @@
+---
+# tasks file for apache-config
+
+- name: "Apache configuration" 
+  template: 
+    src: "inventaire.conf.j2" 
+    # apache_conf_d pointe vers la conf apache 
+    dest: "/etc/httpd/conf.d/inventaire.conf" 
+    owner: "apache" 
+    group: "apache" 
+  # En cas de changement, redémarrage d’apache 
+  notify: [ "apache restart" ]

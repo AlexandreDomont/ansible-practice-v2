@@ -1,0 +1,8 @@
+Alias /inventaire /var/www/html/inventory 
+ 
+# Donne des droits d’accès à tout le monde 
+# une ligne en plus
+<Directory /var/www/html/inventory/> 
+  Order Allow,Deny 
+  Allow from All 
+</Directory>

@@ -1,0 +1,11 @@
+---
+- name: "apache installation"
+  dnf:
+    name: "httpd"
+    state: "present"
+
+- name: "apache service activation"
+  service:
+    name: "httpd"
+    state: "started"
+    enabled: yes

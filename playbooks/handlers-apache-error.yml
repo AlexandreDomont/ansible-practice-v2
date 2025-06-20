@@ -1,0 +1,25 @@
+---
+- name: "Apache config"
+  hosts: labs
+  # force_handlers: true
+  tasks:
+    - name: "Apache configuration"
+      template:
+        src: "templates/inventory.conf.j2"
+        dest: "/etc/httpd/conf.d/inventory.conf"
+        owner: "apache"
+        group: "apache"
+      notify: [ "handlers_apache_restart_apache_service" ]
+
+    ############################################      
+    - name: copy nothing - intended to fail
+      copy:
+        src: /tmp/nothing
+        dest: /var/www/html/nothing.html
+    ############################################
+
+  handlers:
+    - name: "handlers_apache_restart_apache_service"
+      service:
+        name: "httpd"
+        state: "restarted"

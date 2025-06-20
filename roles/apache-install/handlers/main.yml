@@ -1,0 +1,7 @@
+---
+# handlers file for apache-install
+
+- name: "apache restart"
+  service:
+    name: "httpd"
+    state: "restarted"

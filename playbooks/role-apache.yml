@@ -1,0 +1,6 @@
+---
+- name: "Apache installation" 
+  hosts: labs
+  roles: 
+    - role: "apache-install"
+    - role: "apache-config"
