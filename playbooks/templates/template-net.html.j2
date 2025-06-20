@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>Machine {{inventory_hostname}}</title>
+  </head>
+  <body>
+    <p>Cette machine s’appelle {{inventory_hostname}}</p>
+    <p>Ci-dessous la liste de ces adresses :</p>
+    <ul>
+     IP : {{ ansible_facts['default_ipv4']['address'] }}
+    </ul>
+  </body>
+</html>
