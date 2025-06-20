@@ -1,0 +1,18 @@
+---
+- name: test command output
+  hosts: all
+  tasks:
+    - name: Test for VG existance
+      command: vgs
+      register: vgout
+      ignore_errors: True
+
+    - name: Show variable value
+      debug: 
+        var: vgout
+
+    - name: print 
+      debug: 
+        msg: vg does not exist
+      when: "'No such' in vgout.msg"
+

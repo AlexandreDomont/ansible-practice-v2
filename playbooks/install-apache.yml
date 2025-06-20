@@ -1,0 +1,24 @@
+---
+# name : le nom du playbook (apporte de la clarté au code)
+- name: "Apache Installation"
+  # hosts : la liste des machines sur lesquels nous allons travailler
+  hosts: labs
+  # tasks : une liste d’instructions à dérouler
+  tasks:
+    - name: "Install apache package"
+      # module pour l’installation du package
+      dnf:
+        # Les differentes options
+        name: "httpd"
+        state: "present"
+    - name: "Start apache service"
+      service:
+        name: "httpd"
+        state: "started"
+        enabled: yes
+    - name: "Copy www.html"
+      copy:
+        src: "www.html"
+        dest: "/var/www/html"
+        owner: "apache"
+        group: "apache"
