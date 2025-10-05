@@ -1,0 +1,43 @@
+---
+# name : le nom du playbook (apporte de la clarté au code)
+- name: "Apache Installation"
+
+  # hosts : la liste des machines sur lesquelles nous allons travailler
+  hosts: labs
+  become: true
+  gather_facts: false
+
+  # tasks : une liste d’instructions à dérouler
+  tasks:
+
+    - block:
+        - name: "Install Apache package"
+          ansible.builtin.dnf:
+            name: httpd
+            state: present
+
+        - name: "Ensure Apache service is started and enabled"
+          ansible.builtin.service:
+            name: httpd
+            state: started
+            enabled: true
+
+        - name: "Copy homepage to /var/www/html"
+          ansible.builtin.copy:
+            src: files/www.html
+            dest: /var/www/html/index.html
+            owner: apache
+            group: apache
+            mode: '0644'
+
+      name: "Apache installation and configuration block"
+      rescue:
+        - name: "Rollback: remove Apache if installation fails"
+          ansible.builtin.dnf:
+            name: httpd
+            state: absent
+
+      always:
+        - name: "Log completion of Apache setup block"
+          ansible.builtin.debug:
+            msg: "Apache installation block executed (success or failure)."
