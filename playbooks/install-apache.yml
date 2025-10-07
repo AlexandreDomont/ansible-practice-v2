@@ -2,7 +2,7 @@
 # name : le nom du playbook (apporte de la clarté au code)
 - name: "Apache Installation"
   # hosts : la liste des machines sur lesquels nous allons travailler
-  hosts: labs
+  hosts: apache
   # tasks : une liste d’instructions à dérouler
   tasks:
     - name: "Install apache package"

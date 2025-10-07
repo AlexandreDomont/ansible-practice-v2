@@ -3,7 +3,7 @@
 - name: "Apache Installation"
 
   # hosts : la liste des machines sur lesquelles nous allons travailler
-  hosts: labs
+  hosts: apache
   become: true
   gather_facts: false
 
@@ -24,7 +24,7 @@
 
         - name: "Copy homepage to /var/www/html"
           ansible.builtin.copy:
-            src: files/www.html
+            src: www.html
             dest: /var/www/html/index.html
             owner: apache
             group: apache
