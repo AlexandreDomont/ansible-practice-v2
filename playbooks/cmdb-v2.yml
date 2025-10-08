@@ -1,0 +1,33 @@
+---
+- name: Générer un rapport HTML système avec includes Jinja2
+  hosts: all
+  gather_facts: yes
+  vars:
+    support_email: "support@company.com"
+    host_inventory: "{{ groups['apache'][0] }}"
+    inventory_dir:  "/var/www/html/inventory"
+   
+  tasks:
+    - name: "Create template directory"
+      file:
+        path: "{{inventory_dir}}"
+        owner: "apache"
+        group: "apache"
+        mode: "0755"
+        state: "directory"
+      delegate_to: "{{host_inventory}}"
+      run_once: yes
+      
+    - name: Récupérer l'uptime
+      command: uptime -p
+      register: uptime
+
+    - name: Afficher l'uptime transformé
+      debug:
+        msg: "Uptime (clean) : {{ uptime.stdout | regex_replace('up ', '') }}"
+
+    - name: Générer un rapport HTML
+      template:
+        src: templates/base.j2
+        dest: "{{inventory_dir}}/{{inventory_hostname}}.html"
+      delegate_to: "{{host_inventory}}"

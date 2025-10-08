@@ -1,0 +1,13 @@
+---
+- hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Show IP address using different fact syntaxes
+      ansible.builtin.debug:
+        msg: >
+          - This host uses IP address {{ ansible_facts['default_ipv4']['address'] }}
+          - This host uses IP address {{ ansible_facts.default_ipv4.address }}
+          - This host uses IP address {{ ansible_default_ipv4.address }}
+
+
