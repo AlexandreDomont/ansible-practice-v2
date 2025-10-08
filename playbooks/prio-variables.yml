@@ -5,7 +5,7 @@
    prio: playbook_vars
 
   vars_files:
-    - vars_files_prio.yml
+    - fichier-variables.yml
 
   vars_prompt:
     - name: "prio"

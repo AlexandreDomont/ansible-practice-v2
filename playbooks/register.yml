@@ -1,6 +1,6 @@
 ---
 - name: register
-  hosts: all
+  hosts: apache
   gather_facts: no
   tasks:
   - name: starting httpd
