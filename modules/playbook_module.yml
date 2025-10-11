@@ -1,0 +1,14 @@
+- name: Exemple Ansible module personnalisé
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Dire bonjour
+      mon_module:
+        one_name: "{{ one_name }}"
+      register: result
+      vars: 
+        one_name: jean
+
+    - name: Afficher le message
+      debug:
+        msg: "{{ result.msg }}"

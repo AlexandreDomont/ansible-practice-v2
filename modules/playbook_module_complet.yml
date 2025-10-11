@@ -1,0 +1,20 @@
+- name: Test du module personnalisé 
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+      - name: Utiliser mon__module_complet pour dire bonjour 
+        mon_module_complet:
+          name: Pierre
+          path: /tmp/bonjour_ansible-2.txt
+        register: result
+
+      - name: Afficher le message du module
+        debug:
+          msg: "{{ result.message }}"
+
+      - name: Afficher le diff (si présent)
+        debug:
+          var: result.diff
+        when: result.diff is defined
